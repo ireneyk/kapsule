@@ -2,9 +2,6 @@
 
 A minimal, dependency-free Linux container runtime written from scratch in pure Go.
 
-**Author:** Irene  
-**GitHub:** [github.com/ireneyk/kapsule](https://github.com/ireneyk/kapsule)
-
 ---
 
 ## Why I Built This

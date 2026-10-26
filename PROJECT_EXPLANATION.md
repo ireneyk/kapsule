@@ -1,7 +1,6 @@
 # Kapsule: Complete Project Reference & Line-by-Line Technical Manual
 
-**Author:** Irene  
-**GitHub Repository:** [github.com/ireneyk/kapsule](https://github.com/ireneyk/kapsule)  
+**Repository:** [github.com/ireneyk/kapsule](https://github.com/ireneyk/kapsule)  
 **Language:** Go (Pure Standard Library & Syscall, Zero Third-Party Packages)  
 
 ---

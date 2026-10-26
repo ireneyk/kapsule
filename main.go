@@ -299,7 +299,7 @@ func findBinary(cmd string) string {
 }
 
 func printUsage() {
-	fmt.Println(`Kapsule: A Raw Linux Container Runtime (by Irene)
+	fmt.Println(`Kapsule: A Raw Linux Container Runtime
 
 Usage:
   sudo ./kapsule run <rootfs-path> <command> [args...]
