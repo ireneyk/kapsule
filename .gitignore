@@ -1,0 +1,14 @@
+# Binaries
+kapsule
+*.exe
+
+# Root filesystem & cached downloads
+rootfs/
+.cache/
+*.tar.gz
+
+# OS and Editor metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
