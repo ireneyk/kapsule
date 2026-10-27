@@ -241,6 +241,9 @@ func setupCgroups(pid int) error {
 		return fmt.Errorf("cgroups v2 not available")
 	}
 
+	// Enable controllers in root cgroup if not already enabled
+	_ = os.WriteFile("/sys/fs/cgroup/cgroup.subtree_control", []byte("+pids +memory +cpu"), 0644)
+
 	if err := os.MkdirAll(cgroupPath, 0755); err != nil {
 		return fmt.Errorf("mkdir cgroup failed: %w", err)
 	}
