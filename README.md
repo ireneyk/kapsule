@@ -138,6 +138,20 @@ You will see `can't fork: Resource temporarily unavailable` when the process cou
 
 ---
 
+## Command Cheat Sheet & Verification
+
+| # | Test / Feature | Linux / `make` Command | Windows (PowerShell + WSL) | Expected Output | What It Proves |
+|---|---|---|---|---|---|
+| **1** | **Process Isolation** | `sudo ./kapsule run ./rootfs /bin/ps aux` | `wsl -e ./kapsule run ./rootfs /bin/ps aux` | `PID 1 root 0:00 /bin/ps aux` | **PID Namespace:** Container sees only itself as PID 1; host processes are hidden. |
+| **2** | **Hostname Isolation** | `sudo ./kapsule run ./rootfs /bin/hostname` | `wsl -e ./kapsule run ./rootfs /bin/hostname` | `kapsule` | **UTS Namespace:** Isolated hostname without modifying the host system. |
+| **3** | **Fork Bomb Defense** | `make test-forkbomb` | `wsl -e ./kapsule run ./rootfs /bin/sh -c 'for i in $(seq 1 60); do sleep 10 & done; ps aux'` | `can't fork: Resource temporarily unavailable` | **Cgroups v2 (`pids.max`):** Kernel halts process creation at 50 tasks, protecting host stability. |
+| **4** | **Filesystem Jail** | `sudo ./kapsule run ./rootfs /bin/cat /etc/os-release` | `wsl -e ./kapsule run ./rootfs /bin/cat /etc/os-release` | `PRETTY_NAME="Alpine Linux v3.20"` | **`pivot_root`:** Atomic swap to Alpine rootfs; host filesystem detached via `MNT_DETACH`. |
+| **5** | **Interactive Shell** | `sudo ./kapsule run ./rootfs /bin/sh` | `wsl -e ./kapsule run ./rootfs /bin/sh` | `/ # ` interactive shell | **Process Takeover:** `syscall.Exec` replaces Go runtime with `/bin/sh` inside container jail. |
+
+> **Note for Windows users:** Open PowerShell, navigate to the project directory (`cd C:\path\to\kapsule`), and run the commands from the Windows column.
+
+---
+
 ## Project Structure
 
 ```
